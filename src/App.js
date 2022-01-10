@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { calculateWinner } from "./helper";
+import Board from "./components/Board";
+import "./App.css";
 
-function App() {
+const clearState = Array(9).fill(null);
+
+const App = () => {
+  console.log(clearState);
+  const [gameState, updateGameState] = useState(clearState);
+  const [isXChance, updateIsXChance] = useState(true);
+
+  const onUserClicked = (index) => {
+    if (gameState[index]) return;
+    gameState[index] = isXChance ? "X" : "0";
+    updateIsXChance(!isXChance);
+    updateGameState(gameState);
+  };
+
+  useEffect(() => {
+    let winner = calculateWinner(gameState);
+    if (winner) {
+      alert(`The ${winner} won the Game !`);
+    }
+  }, [gameState]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>React Tic Tac Toe - With Hooks</h1>
+      <Board gameState={gameState} onClick={onUserClicked} />
     </div>
   );
-}
+};
 
 export default App;
