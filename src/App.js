@@ -11,10 +11,11 @@ const App = () => {
   const [isXChance, updateIsXChance] = useState(true);
 
   const onUserClicked = (index) => {
-    if (gameState[index]) return;
-    gameState[index] = isXChance ? "X" : "0";
+    let strings = Array.from(gameState);
+    if (strings[index]) return;
+    strings[index] = isXChance ? "X" : "0";
     updateIsXChance(!isXChance);
-    updateGameState(gameState);
+    updateGameState(strings);
   };
 
   useEffect(() => {

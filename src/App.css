@@ -32,4 +32,5 @@ h1 {
   font-size: 5rem;
   text-align: center;
   line-height: 200px;
+  cursor: pointer;
 }
